@@ -16,6 +16,7 @@ app.post('/', (req, res) => {
   const feedback = req.body;
   feedback.id = 2;
   console.log(feedback);
+  res.json({ feedback });
 });
 
 app.listen(3000, () => console.log('App running on port 3000'));
