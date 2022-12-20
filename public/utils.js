@@ -1,5 +1,6 @@
 const form = document.querySelector('form');
 const feedback = document.querySelector('#feedback');
+const stat = document.querySelector('#status');
 
 function submitForm(event) {
   event.preventDefault();
@@ -18,14 +19,27 @@ form.addEventListener('submit', (e) => {
   sendData();
 });
 
-function sendData() {
+async function sendData() {
   let fee = feedback.value;
-  console.log(fee);
-  fetch('/', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ feedback: fee }),
-  });
+  try {
+    await fetch('/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ feedback: fee }),
+    });
+    updateStatus();
+    clearFeedback();
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function updateStatus() {
+  stat.textContent = 'Feedback Submitted Successfully';
+}
+
+function clearFeedback() {
+  feedback.value = '';
 }
