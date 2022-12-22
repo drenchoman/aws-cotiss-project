@@ -13,21 +13,28 @@
   </head>
   <body>
     <div class="wrapper">
-      <h1>Cotiss Feedback Form</h1>
-      <form id="form">
-        <div class="feedback">
-          <label for="feedback">Feedback</label>
-          <textarea
-            rows="3"
-            type="text"
-            name="feedback"
-            id="feedback"
-            placeholder="Your feedback"
-          ></textarea>
-        </div>
-        <button>Submit</button>
-      </form>
-      <span id="status"></span>
+      <nav>
+        <h1>Cotiss</h1>
+      </nav>
+      <div class="card">
+        <h2>
+          We appreciate your feedback to help improve our services
+        </h2>
+        <form id="form">
+          <div class="feedback">
+            <label class="hidden" for="feedback">Feedback</label>
+            <textarea
+              rows="3"
+              type="text"
+              name="feedback"
+              id="feedback"
+              placeholder="Your feedback"
+            ></textarea>
+          </div>
+          <button>Submit</button>
+        </form>
+        <span id="status"></span>
+      </div class="card">
     </div>
     <script src="./utils.js"></script>
   </body>

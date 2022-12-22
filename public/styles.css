@@ -3,6 +3,18 @@ body {
   margin: 0;
   padding: 0;
 }
+nav {
+  position: fixed;
+  top: 2rem;
+  right: 5rem;
+}
+
+h1 {
+  font-size: 1rem;
+}
+h2 {
+  font-size: 2rem;
+}
 
 .wrapper {
   display: flex;
@@ -17,6 +29,11 @@ body {
 
 .wrapper > * {
   color: whitesmoke;
+}
+
+.card {
+  flex-basis: 400px;
+  max-width: 400px;
 }
 
 .feedback {
@@ -49,6 +66,11 @@ button:hover {
 
 textarea {
   border-radius: 4px;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
 }
 
 @media screen and (max-width: 420px) {
