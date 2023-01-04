@@ -1,6 +1,7 @@
 const express = require('express');
 const { config } = require('dotenv');
 const app = express();
+const read = require('./read');
 const PORT = 5000;
 
 config();
@@ -15,9 +16,12 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 // Need to connect to DynamoDB and pull real feedback
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
   let feed = getRandomInt(3);
   feed = feedback[feed];
+  const pulledFeedback = await read.getItem();
+  console.log(pulledFeedback)
+
   res.json({ feed });
 });
 
