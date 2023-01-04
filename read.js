@@ -17,7 +17,8 @@ let tableName = 'UserFeedback';
 
 var params = {
   TableName: tableName,
-  Key: { 'userid': '12345-abcd-6789', },
+  Key: { 'userid': '12345-abcd-6789',
+'dateSubmitted': 1671052466889 },
 };
 
 const getItem = async () => {
