@@ -1,8 +1,9 @@
 const express = require('express');
-
+const { config } = require('dotenv');
 const app = express();
-
 const PORT = 5000;
+
+config();
 
 let feedback = [
   'Amazing company, wow!',
