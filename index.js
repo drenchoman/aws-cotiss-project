@@ -1,33 +1,64 @@
 const express = require('express');
 const { config } = require('dotenv');
+const bodyParser = require('body-parser')
 const app = express();
 const read = require('./read');
+const write = require('./write')
 const PORT = 5000;
 
 config();
+app.use(bodyParser.json())
 
-let feedback = [
-  'Amazing company, wow!',
-  'Cotiss are excellent, they provide such an amazing service',
-  'Best Company Ever!',
-];
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * max);
+let testData = {
+  TableName: 'userFeedback',
+  Item: {
+    'userid': '23456-abcd-65432',
+    'q1': 'It helps make my job a whole lot easier',
+    'q2': 7,
+    'q3': 'Nothing, apps great',
+    'dateSubmitted': Date.now()
+  }
 }
-// Need to connect to DynamoDB and pull real feedback
+
 app.get('/', async (req, res) => {
-  let feed = getRandomInt(3);
-  feed = feedback[feed];
-  const pulledFeedback = await read.getItem();
-  console.log(pulledFeedback)
+ 
+try {
+await read.readAll(res)
 
-  res.json({ feed });
+}
+catch(err) {
+  console.log("test")
+  console.log(err)
+}
+
 });
 
-app.get('/health-check', (req, res) => {
-  res.json({ message: 'Server up and running' });
-});
+
+app.get('/allfeedback', async (req, res) => {
+  try {
+    await read.readOne(res)
+  }
+  catch (err) {
+    console.log(err)
+  }
+})
+
+app.post('/test', async (req, res) => {
+
+  res.json(req.body)
+})
+
+
+app.post('/', async (req, res) => {
+  try {
+    await write.writeOne(res, testData)
+  }
+  catch(err) {
+    console.log(err)
+  }
+})
+
+
 
 app.listen(PORT, () => {
   console.log('Server Running on PORT', PORT);

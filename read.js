@@ -13,23 +13,35 @@ let dynamodb = new AWS.DynamoDB.DocumentClient({ apiVersion: '2012-08-10' });
 
 // module.exports = { ddbDocumentClient };
 
-let tableName = 'UserFeedback';
+let tableName = 'userFeedback';
 
 var params = {
   TableName: tableName,
   Key: { 'userid': '12345-abcd-6789',
-'dateSubmitted': 1671052466889 },
+ },
 };
 
-const getItem = async () => {
-  dynamodb.get(params, function(err, data) {
-    if (err) {
-      console.log('error', err);
-    } else {
-      console.log('success : ', data.Item);
-    }
+async function readOne(res) {
+ dynamodb.get(params).promise().then(function(data) {
+res.json(data.Item)
+    
  
 })
-};
 
-module.exports = { getItem };
+}
+
+async function readAll(res){
+  let promise = dynamodb.scan(params).promise()
+  let result = await promise
+  let data = result.Items
+  if(result.LastEvaluatedKey) {
+    params.ExclusiveStartKey = result.LastEvaluatedKey
+    data = data.concat(await dbRead(params))
+  }
+  res.json(data)
+}
+
+
+module.exports = { readOne, readAll };
+
+
