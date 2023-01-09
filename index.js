@@ -23,7 +23,7 @@ const corsOptions = {
 
 config();
 app.use(bodyParser.json())
-app.use(cors(corsOptions))
+app.use(cors())
 
 
 // Get all Feedback
