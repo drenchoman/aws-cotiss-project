@@ -9,7 +9,7 @@ const PORT = 5000;
 const { body, validationResult } = require('express-validator');
 
 // Remove Localhost when I am done
-const whitelist = ['http://localhost:5173', 'https://aws-project-client-drenchoman.vercel.app/', 'https://aws-project-client-git-main-drenchoman.vercel.app/', 'https://aws-project-client.vercel.app/' ]
+const whitelist = ['https://aws-project-client-drenchoman.vercel.app/', 'https://aws-project-client-git-main-drenchoman.vercel.app/', 'https://aws-project-client.vercel.app/' ]
 const corsOptions = {
   origin: function (origin, callback) {
     if (whitelist.indexOf(origin) !== -1 || !origin){
@@ -20,21 +20,10 @@ const corsOptions = {
   }
 }
 
-
 config();
 app.use(bodyParser.json())
 app.use(cors(corsOptions))
 
-let testData = {
-  TableName: 'userFeedback',
-  Item: {
-    'userid': '23456-abcd-65432',
-    'q1': 'It helps make my job a whole lot easier',
-    'q2': 7,
-    'q3': 'Nothing, apps great',
-    'dateSubmitted': Date.now()
-  }
-}
 
 // Get all Feedback
 app.get('/feedback', async (req, res) => {
@@ -44,8 +33,7 @@ await read.readAll(res)
 
 }
 catch(err) {
-  console.log("test")
-  console.log(err)
+  console.log("Ooops there was an error")
 }
 
 });
@@ -57,7 +45,7 @@ app.get('/feedback/:id/', async (req, res) => {
     await read.readOne(res, req.params.id, req.params.question )
   }
   catch (err) {
-    console.log(err)
+    console.log("Oops there was an error")
   }
 })
 
@@ -69,23 +57,18 @@ app.post('/feedback',
   body('q3').escape().trim(), 
   body('dateSubmitted').escape().trim().toInt(),
   async (req, res) => {
-    let feedback = {TableName: 'userFeedback',
-    Item: req.body
-  }
+    try {
+      let feedback = {TableName: 'userFeedback',
+      Item: req.body
+    }
+      await write.writeOne(res, feedback)
 
-   await write.writeOne(res, feedback)
+    }
+    catch (err) {
+      console.log("Oops an error occured")
+    }
+ 
 })
-
-
-// app.post('/', async (req, res) => {
-//   try {
-//     await write.writeOne(res, testData)
-//   }
-//   catch(err) {
-//     console.log(err)
-//   }
-// })
-
 
 
 app.listen(PORT, () => {
