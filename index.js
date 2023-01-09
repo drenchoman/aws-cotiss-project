@@ -6,7 +6,10 @@ const read = require('./read');
 const write = require('./write')
 const cors = require('cors')
 const PORT = 8080;
+
 const { body, validationResult } = require('express-validator');
+
+
 
 // Remove Localhost when I am done
 const whitelist = ['https://aws-project-client-drenchoman.vercel.app/', 'https://aws-project-client-git-main-drenchoman.vercel.app/', 'https://aws-project-client.vercel.app/' ]
