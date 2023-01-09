@@ -6,6 +6,7 @@ const read = require('./read');
 const write = require('./write')
 const cors = require('cors')
 const PORT = 5000;
+const { body, validationResult } = require('express-validator');
 
 // Remove Localhost when I am done
 const whitelist = ['http://localhost:5173', 'https://aws-project-client-drenchoman.vercel.app/', 'https://aws-project-client-git-main-drenchoman.vercel.app/', 'https://aws-project-client.vercel.app/' ]
@@ -50,10 +51,10 @@ catch(err) {
 });
 
 // Get single Feedback
-app.get('/feedback/:id', async (req, res) => {
+app.get('/feedback/:id/', async (req, res) => {
   try {
     
-    await read.readOne(res, req.params.id )
+    await read.readOne(res, req.params.id, req.params.question )
   }
   catch (err) {
     console.log(err)
@@ -61,20 +62,29 @@ app.get('/feedback/:id', async (req, res) => {
 })
 
 // Post feedback to table
-app.post('/feedback', async (req, res) => {
+app.post('/feedback', 
+  body('userid').escape().ltrim().trim(),
+  body('q1').escape().trim(), 
+  body('q2').escape().toInt(), 
+  body('q3').escape().trim(), 
+  body('dateSubmitted').escape().trim().toInt(),
+  async (req, res) => {
+    let feedback = {TableName: 'userFeedback',
+    Item: req.body
+  }
 
-  res.json(req.body)
+   await write.writeOne(res, feedback)
 })
 
 
-app.post('/', async (req, res) => {
-  try {
-    await write.writeOne(res, testData)
-  }
-  catch(err) {
-    console.log(err)
-  }
-})
+// app.post('/', async (req, res) => {
+//   try {
+//     await write.writeOne(res, testData)
+//   }
+//   catch(err) {
+//     console.log(err)
+//   }
+// })
 
 
 
