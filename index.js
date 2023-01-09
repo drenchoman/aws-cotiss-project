@@ -5,7 +5,7 @@ const app = express();
 const read = require('./read');
 const write = require('./write')
 const cors = require('cors')
-const PORT = 5000;
+const PORT = 443;
 const { body, validationResult } = require('express-validator');
 
 // Remove Localhost when I am done
@@ -19,6 +19,7 @@ const corsOptions = {
     }
   }
 }
+
 
 config();
 app.use(bodyParser.json())
