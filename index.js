@@ -4,10 +4,25 @@ const bodyParser = require('body-parser')
 const app = express();
 const read = require('./read');
 const write = require('./write')
+const cors = require('cors')
 const PORT = 5000;
+
+// Remove Localhost when I am done
+const whitelist = ['http://localhost:5173', 'https://aws-project-client-drenchoman.vercel.app/', 'https://aws-project-client-git-main-drenchoman.vercel.app/', 'https://aws-project-client.vercel.app/' ]
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin){
+      callback(null, true)
+    } else {
+      callback( new Error('Not allowd by CORS'))
+    }
+  }
+}
+
 
 config();
 app.use(bodyParser.json())
+app.use(cors(corsOptions))
 
 let testData = {
   TableName: 'userFeedback',
@@ -20,7 +35,8 @@ let testData = {
   }
 }
 
-app.get('/', async (req, res) => {
+// Get all Feedback
+app.get('/feedback', async (req, res) => {
  
 try {
 await read.readAll(res)
@@ -33,17 +49,19 @@ catch(err) {
 
 });
 
-
-app.get('/allfeedback', async (req, res) => {
+// Get single Feedback
+app.get('/feedback/:id', async (req, res) => {
   try {
-    await read.readOne(res)
+    
+    await read.readOne(res, req.params.id )
   }
   catch (err) {
     console.log(err)
   }
 })
 
-app.post('/test', async (req, res) => {
+// Post feedback to table
+app.post('/feedback', async (req, res) => {
 
   res.json(req.body)
 })

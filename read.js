@@ -21,7 +21,8 @@ var params = {
  },
 };
 
-async function readOne(res) {
+async function readOne(res, id) {
+  params.Key.userid = id
  dynamodb.get(params).promise().then(function(data) {
 res.json(data.Item)
     
