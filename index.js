@@ -11,13 +11,18 @@ const { body, validationResult } = require('express-validator');
 
 
 
-const whitelist = ['https://aws-project-client-drenchoman.vercel.app', 'https://aws-project-client-git-main-drenchoman.vercel.app', 'https://aws-project-client.vercel.app', 'http://localhost:5173' ]
-
+const whitelist = ['https://aws-project-client-drenchoman.vercel.app', 'https://aws-project-client-git-main-drenchoman.vercel.app', 'https://aws-project-client.vercel.app', ]
+const corsOptions ={
+  origin:whitelist,
+  credentials:true,
+  optionSuccessStatus:200
+}
 
 config();
+app.use(cors(corsOptions))
 app.use(bodyParser.json())
-app.use(cors({
-origin: '*'}))
+
+
 
 
 // Get all Feedback
