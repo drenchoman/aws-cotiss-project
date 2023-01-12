@@ -17,8 +17,7 @@ const whitelist = ['https://aws-project-client-drenchoman.vercel.app', 'https://
 config();
 app.use(bodyParser.json())
 app.use(cors({
-origin: ['https://aws-project-client-drenchoman.vercel.app', 'https://aws-project-client-git-main-drenchoman.vercel.app', 'https://aws-project-client.vercel.app' ]
-}));
+origin: '*'}))
 
 
 // Get all Feedback
