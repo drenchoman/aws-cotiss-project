@@ -8,27 +8,13 @@ const cors = require('cors')
 const PORT = 8080;
 const { body, validationResult } = require('express-validator');
 
-const whitelist = ['https://aws-project-client-drenchoman.vercel.app', 'https://aws-project-client-git-main-drenchoman.vercel.app', 'https://aws-project-client.vercel.app', ]
+const whitelist = ['https://aws-project-client-drenchoman.vercel.app/', 'https://aws-project-client-git-main-drenchoman.vercel.app/', 'https://aws-project-client.vercel.app/', ]
 
 
-app.use(cors({
-
-  origin: function(origin, callback){
-    // allow requests with no origin
-    // (like mobile apps or curl requests)
-    if(!origin) return callback(null, true);
-    if(whitelist.indexOf(origin) === -1){
-      var msg = 'The CORS policy for this site does not ' +
-                'allow access from the specified Origin.';
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-
-  exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
-
-  credentials: true,
-}));
+const corsOptions = {
+  origin: whitelist,
+  optionSuccessStatus: 200
+}
 
 
 
@@ -41,7 +27,7 @@ app.use(bodyParser.json())
 
 
 // Get all Feedback
-app.get('/feedback', async (req, res) => {
+app.get('/feedback', cors(corsOptions), async (req, res) => {
  
 try {
 await read.readAll(res)
@@ -54,7 +40,7 @@ catch(err) {
 });
 
 // Get single Feedback
-app.get('/feedback/:id/', async (req, res) => {
+app.get('/feedback/:id/', cors(corsOptions), async (req, res) => {
   try {
     
     await read.readOne(res, req.params.id, req.params.question )
@@ -70,7 +56,8 @@ app.post('/feedback',
   body('q1').escape().trim(), 
   body('q2').escape().toInt(), 
   body('q3').escape().trim(), 
-  body('dateSubmitted').escape().trim().toInt(),
+  body('dateSubmitted').escape().trim().toInt(), 
+  cors(corsOptions),
   async (req, res) => {
     try {
       let feedback = {TableName: 'userFeedback',
