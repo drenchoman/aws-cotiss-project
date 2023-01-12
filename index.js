@@ -28,7 +28,7 @@ app.use(cors({
     }
     return callback(null, true);
   }
-}));app.use(cors(corsOptions))
+}));
 
 
 // Get all Feedback
