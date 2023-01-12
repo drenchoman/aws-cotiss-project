@@ -6,20 +6,35 @@ const read = require('./read');
 const write = require('./write')
 const cors = require('cors')
 const PORT = 8080;
-
 const { body, validationResult } = require('express-validator');
 
-
-
 const whitelist = ['https://aws-project-client-drenchoman.vercel.app', 'https://aws-project-client-git-main-drenchoman.vercel.app', 'https://aws-project-client.vercel.app', ]
-const corsOptions ={
-  origin:whitelist,
-  credentials:true,
-  optionSuccessStatus:200
-}
+
+
+app.use(cors({
+
+  origin: function(origin, callback){
+    // allow requests with no origin
+    // (like mobile apps or curl requests)
+    if(!origin) return callback(null, true);
+    if(whitelist.indexOf(origin) === -1){
+      var msg = 'The CORS policy for this site does not ' +
+                'allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+
+  exposedHeaders: ['Content-Length', 'X-Foo', 'X-Bar'],
+
+  credentials: true,
+}));
+
+
+
+
 
 config();
-app.use(cors(corsOptions))
 app.use(bodyParser.json())
 
 
