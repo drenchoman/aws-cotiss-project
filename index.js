@@ -13,8 +13,11 @@ const whitelist = ['https://aws-project-client-drenchoman.vercel.app/', 'https:/
 
 const corsOptions = {
   origin: whitelist,
-  optionSuccessStatus: 200
+  optionSuccessStatus: 200,
+  credentials:true, 
 }
+
+app.use(cors(corsOptions))
 
 
 
@@ -27,7 +30,7 @@ app.use(bodyParser.json())
 
 
 // Get all Feedback
-app.get('/feedback', cors(corsOptions), async (req, res) => {
+app.get('/feedback', async (req, res) => {
  
 try {
 await read.readAll(res)
@@ -40,7 +43,7 @@ catch(err) {
 });
 
 // Get single Feedback
-app.get('/feedback/:id/', cors(corsOptions), async (req, res) => {
+app.get('/feedback/:id/',  async (req, res) => {
   try {
     
     await read.readOne(res, req.params.id, req.params.question )
@@ -57,7 +60,7 @@ app.post('/feedback',
   body('q2').escape().toInt(), 
   body('q3').escape().trim(), 
   body('dateSubmitted').escape().trim().toInt(), 
-  cors(corsOptions),
+  
   async (req, res) => {
     try {
       let feedback = {TableName: 'userFeedback',
