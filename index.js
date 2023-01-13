@@ -12,9 +12,7 @@ const whitelist = ['https://aws-project-client-drenchoman.vercel.app/', 'https:/
 
 
 const corsOptions = {
-  origin: whitelist,
-  optionSuccessStatus: 200,
-  credentials:true, 
+  origin: true, credentials: true
 }
 
 app.use(cors(corsOptions))
