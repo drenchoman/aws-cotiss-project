@@ -2,6 +2,7 @@
 
 ## Demo & Reflections
 [![Summer of AWS](https://res.cloudinary.com/dbyprqeyc/image/upload/v1673769145/mq2_jvpobo.webp)](https://www.youtube.com/watch?v=KNCMNLMWgzI)
+
 [View the video here](https://www.youtube.com/watch?v=KNCMNLMWgzI)
 
 
