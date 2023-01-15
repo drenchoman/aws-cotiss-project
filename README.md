@@ -1,10 +1,7 @@
 # Summer of AWS Project
 
-  <iframe width="560" height="315"
-src="https://https://www.youtube.com/watch?v=KNCMNLMWgzI" 
-frameborder="0" 
-allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
-allowfullscreen></iframe>
+## Demo & Reflections
+[![Summer of AWS](https://res.cloudinary.com/dbyprqeyc/image/upload/v1673769145/mq2_jvpobo.webp)](https://www.youtube.com/watch?v=KNCMNLMWgzI)
 
 ## The Client
 
