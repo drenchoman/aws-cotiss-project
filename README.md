@@ -1,7 +1,7 @@
 # Summer of AWS Project
 
 ## Demo & Reflections
-[![Summer of AWS](https://res.cloudinary.com/dbyprqeyc/image/upload/v1673769145/mq2_jvpobo.webp)](https://www.youtube.com/watch?v=KNCMNLMWgzI)
+[![Summer of AWS](https://res.cloudinary.com/dbyprqeyc/image/upload/v1673769145/mq2_jvpobo.webp)](https://www.youtube.com/watch?v=KNCMNLMWgzI "Video Title")
 
 ## The Client
 
