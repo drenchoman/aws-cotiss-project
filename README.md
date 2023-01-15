@@ -1,5 +1,11 @@
 # Summer of AWS Project
 
+  <iframe width="560" height="315"
+src="https://https://www.youtube.com/watch?v=KNCMNLMWgzI" 
+frameborder="0" 
+allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+allowfullscreen></iframe>
+
 ## The Client
 
 [Cotiss](https://www.cotiss.com/) is built specifically to help organisations be more effective in how they buy & supply goods and services. They’re a B2B company that creates software for companies to track their spending and make better business decisions.
@@ -16,7 +22,6 @@ Basic solution includes
 
 - IAM
 - EC2
-- Elastic Load Balancer
 - Auto Scaling
 - DynamoDB
-- Javascript/Node AWS SDK
+- Decoupled [Front End](https://github.com/drenchoman/aws-project-client) built with Svelte
